@@ -15,32 +15,14 @@ class NewsPanel extends React.Component {
   }
 
   loadMoreNews(e) {
-    this.setState({
-      news: [
-        {
-          'digest': 1,
-          'url': 'https://9to5google.com/2018/11/19/google-news-eu-shutdown-aritcle-11/',
-          'description': 'Google could shutdown Google News in Europe over Article 11 ‘link tax’',
-          'source': 'cnn',
-          'title': 'testing',
-        },
-        {
-          'digest': 2,
-          'url': 'https://9to5google.com/2018/11/19/google-news-eu-shutdown-aritcle-11/',
-          'description': 'Google could shutdown Google News in Europe over Article 11 ‘link tax’',
-          'source': 'cnn',
-          'title': 'testing',
-
-        },
-        {
-          'digest': 3,
-          'url': 'https://9to5google.com/2018/11/19/google-news-eu-shutdown-aritcle-11/',
-          'description': 'Google could shutdown Google News in Europe over Article 11 ‘link tax’',
-          'source': 'cnn',
-          'title': 'testing',
-        }
-      ]
-    })
+    let request = new Request('http://localhost:4000/news', {method: 'GET'});
+    fetch(request)
+      .then((res) => res.json())
+      .then((news) => {
+        this.setState({
+          news: this.state.news ? this.state.news.concat(news) : news,
+        });
+      });
   }
 
   renderNews() {
