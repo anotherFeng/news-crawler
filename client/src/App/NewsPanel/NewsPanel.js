@@ -1,5 +1,5 @@
 import './NewsPanel.css';
-
+import _ from 'lodash';
 import React from 'react';
 
 import NewsCard from './NewsCard/NewsCard';
@@ -12,10 +12,12 @@ class NewsPanel extends React.Component {
 
   componentDidMount() {
     this.loadMoreNews();
+    this.loadMoreNews = _.debounce(this.loadMoreNews, 1000);
+    window.addEventListener('scroll', this.handleScroll.bind(this));
   }
 
   loadMoreNews(e) {
-    let request = new Request('http://localhost:4000/news', {method: 'GET'});
+    const request = new Request('http://localhost:4000/news', {method: 'GET'});
     fetch(request)
       .then((res) => res.json())
       .then((news) => {
@@ -23,6 +25,14 @@ class NewsPanel extends React.Component {
           news: this.state.news ? this.state.news.concat(news) : news,
         });
       });
+  }
+
+  handleScroll() {
+    const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+    if ((window.innerHeight + scrollY) >= (document.body.offsetHeight - 50)) {
+      console.log("loading more news");
+      this.loadMoreNews();
+    }
   }
 
   renderNews() {
