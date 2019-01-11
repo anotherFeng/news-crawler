@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
       'url': 'https://9to5google.com/2018/11/19/google-news-eu-shutdown-aritcle-11/',
       'description': 'Google could shutdown Google News in Europe over Article 11 ‘link tax’',
       'source': 'cnn',
-      'title': 'testing',
+      'title': 'testing2',
 
     },
     {
@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
       'url': 'https://9to5google.com/2018/11/19/google-news-eu-shutdown-aritcle-11/',
       'description': 'Google could shutdown Google News in Europe over Article 11 ‘link tax’',
       'source': 'cnn',
-      'title': 'testing',
+      'title': 'testing3',
     }
   ];
   res.json(news);
